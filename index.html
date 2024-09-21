@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音频工具</title>
+</head>
+<body>
+    <h1>音频工具</h1>
+    <textarea id="textToSpeak">请输入你想听的文本</textarea>
+    <button id="speakButton">生成音频</button>
+    <p>输出结果:</p>
+    <audio id="audioResult" controls></audio>
+
+    <script>
+        document.getElementById('speakButton').addEventListener('click', function() {
+            var textToSpeak = document.getElementById('textToSpeak').value;
+
+            fetch('https://api.aihubmix.com/v1/audio/speech', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer sk-3h4UkodL951Aif2EC9A485C91eBe4bE4B04d599fA355D5F8  ' 
+                },
+                body: JSON.stringify({
+                    model: "tts-1-hd",
+                    input: textToSpeak,
+                    voice: "fable"
+                })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                var url = window.URL.createObjectURL(blob);
+                var audioElement = document.getElementById('audioResult');
+                audioElement.src = url;
+                // 如果你想要下载MP3文件，你可以使用以下代码：
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'output.mp3';
+                a.click();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
