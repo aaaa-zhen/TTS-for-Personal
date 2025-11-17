@@ -1,30 +1,49 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+
+<!-- saved from url=(0045)https://aaaa-zhen.github.io/TTS-for-Personal/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音频工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 40px; max-width: 600px; width: 100%; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; font-size: 32px; }
+        textarea { width: 100%; min-height: 150px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; resize: vertical; transition: border-color 0.3s; }
+        textarea:focus { outline: none; border-color: #667eea; }
+        button { width: 100%; padding: 15px; margin-top: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102,126,234,0.3); }
+        button:active { transform: translateY(0); }
+        .result-section { margin-top: 30px; }
+        .result-label { color: #666; font-size: 14px; margin-bottom: 10px; font-weight: 500; }
+        audio { width: 100%; margin-top: 10px; border-radius: 10px; }
+    </style>
 </head>
 <body>
-    <h1>音频工具</h1>
-    <textarea id="textToSpeak">请输入你想听的文本</textarea>
-    <button id="speakButton">生成音频</button>
-    <p>输出结果:</p>
-    <audio id="audioResult" controls></audio>
+    <div class="container">
+        <h1>🎵 音频工具</h1>
+        <textarea id="textToSpeak" placeholder="请输入你想听的文本...">请输入你想听的文本</textarea>
+        <button id="speakButton">生成音频</button>
+        <div class="result-section">
+            <div class="result-label">输出结果:</div>
+            <audio id="audioResult" controls=""></audio>
+        </div>
+    </div>
 
     <script>
         document.getElementById('speakButton').addEventListener('click', function() {
             var textToSpeak = document.getElementById('textToSpeak').value;
 
-            fetch('https://api.aihubmix.com/v1/audio/speech', {
+            fetch('https://aihubmix.com/v1/audio/speech', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer sk-3h4UkodL951Aif2EC9A485C91eBe4bE4B04d599fA355D5F8  ' 
+                    'Authorization': 'Bearer sk-fgnLlQcNwEn8rT5r3cD16d9a431b4f17A5Eb342a0d9a902f' 
                 },
                 body: JSON.stringify({
                     model: "tts-1-hd",
                     input: textToSpeak,
-                    voice: "fable"
+                    voice: "coral"
                 })
             })
             .then(response => response.blob())
@@ -43,5 +62,6 @@
             });
         });
     </script>
-</body>
-</html>
+
+
+</body></html>
